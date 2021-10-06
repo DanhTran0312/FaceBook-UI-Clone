@@ -6,17 +6,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final TrackingScrollController _trackingScrollController =
+      TrackingScrollController();
+
+  @override
+  void dispose() {
+    _trackingScrollController.detach(_trackingScrollController.position);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: const Scaffold(
+      child: Scaffold(
         body: Responsive(
-          mobile: _HomeScreenMobile(),
-          desktop: _HomeScreenDesktop(),
+          mobile:
+              _HomeScreenMobile(scrollController: _trackingScrollController),
+          desktop:
+              _HomeScreenDesktop(scrollController: _trackingScrollController),
         ),
       ),
     );
@@ -24,13 +40,16 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _HomeScreenMobile extends StatelessWidget {
+  final TrackingScrollController scrollController;
   const _HomeScreenMobile({
     Key? key,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      controller: scrollController,
       slivers: [
         // AppBar
         SliverAppBar(
@@ -101,7 +120,11 @@ class _HomeScreenMobile extends StatelessWidget {
 }
 
 class _HomeScreenDesktop extends StatelessWidget {
-  const _HomeScreenDesktop({Key? key}) : super(key: key);
+  final TrackingScrollController scrollController;
+  const _HomeScreenDesktop({
+    Key? key,
+    required this.scrollController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +132,12 @@ class _HomeScreenDesktop extends StatelessWidget {
       children: [
         Flexible(
           flex: 2,
-          child: Container(
-            color: Colors.blue,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: EdgeInsets.all(12),
+              child: MoreOptionsList(currentUser: currentUser),
+            ),
           ),
         ),
         const Spacer(),
@@ -158,8 +185,12 @@ class _HomeScreenDesktop extends StatelessWidget {
         const Spacer(),
         Flexible(
           flex: 2,
-          child: Container(
-            color: Colors.amber,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: EdgeInsets.all(12),
+              child: ContactList(users: onlineUsers),
+            ),
           ),
         ),
       ],

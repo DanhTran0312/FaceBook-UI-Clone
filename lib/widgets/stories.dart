@@ -18,42 +18,34 @@ class Stories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDesktop = Responsive.isDesktop(context);
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: isDesktop ? 5 : 0),
-      elevation: isDesktop ? 1 : 0,
-      shape: isDesktop
-          ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-          : null,
-      child: Container(
-        height: 200,
-        color:
-            Responsive.isDesktop(context) ? Colors.transparent : Colors.white,
-        child: ListView.builder(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 8,
-          ),
-          scrollDirection: Axis.horizontal,
-          itemCount: stories.length + 1,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: _StoryCard(
-                  isAddStory: true,
-                  currentUser: currentUser,
-                ),
-              );
-            }
-            final Story story = stories[index - 1];
+    return Container(
+      color: Responsive.isDesktop(context) ? Colors.transparent : Colors.white,
+      height: 200,
+      child: ListView.builder(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 8,
+        ),
+        scrollDirection: Axis.horizontal,
+        itemCount: stories.length + 1,
+        itemBuilder: (BuildContext context, int index) {
+          if (index == 0) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
               child: _StoryCard(
-                story: story,
+                isAddStory: true,
+                currentUser: currentUser,
               ),
             );
-          },
-        ),
+          }
+          final Story story = stories[index - 1];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: _StoryCard(
+              story: story,
+            ),
+          );
+        },
       ),
     );
   }

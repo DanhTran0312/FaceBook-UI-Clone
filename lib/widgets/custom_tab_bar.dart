@@ -23,7 +23,7 @@ class CustomTabBar extends StatelessWidget {
         indicator: BoxDecoration(
           border: isBottomIndicator
               ? Border(
-                  top: BorderSide(color: Palette.facebookBlue, width: 3),
+                  bottom: BorderSide(color: Palette.facebookBlue, width: 3),
                 )
               : Border(
                   top: BorderSide(color: Palette.facebookBlue, width: 3),

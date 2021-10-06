@@ -17,6 +17,7 @@ class PostContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDesktop = Responsive.isDesktop(context);
     return Card(
+      color: Colors.white,
       margin: EdgeInsets.symmetric(
         horizontal: isDesktop ? 5 : 0,
         vertical: 5,
@@ -27,7 +28,6 @@ class PostContainer extends StatelessWidget {
           : null,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8),
-        color: Colors.white,
         child: Column(
           children: [
             Padding(

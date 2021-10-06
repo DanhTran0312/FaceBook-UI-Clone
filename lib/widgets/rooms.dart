@@ -15,6 +15,7 @@ class Rooms extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDesktop = Responsive.isDesktop(context);
     return Card(
+      color: Colors.white,
       margin: EdgeInsets.symmetric(horizontal: isDesktop ? 5 : 0),
       elevation: isDesktop ? 1 : 0,
       shape: isDesktop
@@ -22,7 +23,6 @@ class Rooms extends StatelessWidget {
           : null,
       child: Container(
         height: 60,
-        color: Colors.white,
         child: ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
           scrollDirection: Axis.horizontal,
